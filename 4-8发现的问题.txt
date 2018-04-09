@@ -1,0 +1,19 @@
+1.BidSupplier.xml
+
+ <update id="updateByPhone" parameterType="com.beibei.sop.persistence.sop.entity.supplier.BidSupplier">
+        update sop_bid_suppliers
+        <set>
+            `name` = #{name,jdbcType=VARCHAR},
+            company_name = #{companyName,jdbcType=VARCHAR},
+            company_address = #{companyAddress,jdbcType=VARCHAR},
+            cooperation_company = #{cooperationCompany,jdbcType=VARCHAR},
+            cooperation_details = #{cooperationDetails,jdbcType=VARCHAR},
+            is_activated = #{enabled,jdbcType=INTEGER},
+            last_updated = #{lastUpdated,jdbcType=TIMESTAMP},
+            `type` = #{type,jdbcType=TINYINT},
+            updated_by = #{updatedBy,jdbcType=INTEGER},
+        </set>
+        where phone = #{phone,jdbcType=VARCHAR}
+    </update>
+	
+	void updateByPhone(BidSupplierDO supplier);

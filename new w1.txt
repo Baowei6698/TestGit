@@ -1,0 +1,7 @@
+INSERT INTO `sop_express_price_config` 
+(`id`, `warehouse_no`, `express_code`, `region_code`, 
+`receiver_province`, `receiver_city`, `weight_start`, 
+`weight_end`, `range_start`, `range_end`, `charge_unit`, 
+`charge_rate`, `gmt_create`, `gmt_modified`) 
+VALUES ('1517', 'JY1', 'STO', '340000', '安徽省', 
+NULL, '0', '3', '0', '3', '3', '5.6', '0', '0');

@@ -1,0 +1,36 @@
+1.在SopWmsOrderNodeRecordDao对应的xml中
+<select id="selectNodeRecordsIfSync" resultMap="BaseResultMap">
+        select
+        <include refid="Node_Record_Column_List"/>
+        from sop_wms_order_node_change_record
+        where is_sync = false and node = #{status}                 ------->   false
+        <if test="shipmentNo != null">
+            and shipment_no = #{shipmentNo}
+        </if>
+        order by shipment_no
+        limit #{limit}
+</select>
+
+CREATE TABLE `sop_wms_order_node_change_record` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `shipment_no` bigint(20) NOT NULL COMMENT '包裹单号',
+  `warehouse_no` varchar(8) NOT NULL COMMENT '仓库编码',
+  `node` int(4) NOT NULL COMMENT '节点状态',
+  `op_time` datetime NOT NULL COMMENT '操作时间',
+  `is_sync` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否同步',    ------->    0,1  
+  `created_time` datetime NOT NULL,
+  `sku` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+
+2.
+
+<update id="batchUpdateSyncFlagWithStatus" parameterType="java.util.List">
+        update sop_wms_order_node_change_record
+        set is_sync = true                                             ------>  true  ???
+        where node = #{status}
+        and shipment_no in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item.shipmentNo}
+        </foreach>
+    </update>
